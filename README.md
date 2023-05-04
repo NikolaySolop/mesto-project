@@ -15,4 +15,4 @@
 * оптимизации изображений перед использованием в проекте
 
 ### Ссылка на сайт
-[Проект "Mesto"](https://nikolaysolop.github.io/russian-travel/index.html)
+[Проект "Mesto"](https://nikolaysolop.github.io/mesto-project//index.html)
