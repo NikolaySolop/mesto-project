@@ -1,0 +1,13 @@
+.popup__heading {
+    font-family: Inter, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: calc((6 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 18px);
+    line-height: calc(29/24);
+    color: black;
+
+    margin: 0 0 calc(62px - (21 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px));
+    padding: 0;
+
+
+}

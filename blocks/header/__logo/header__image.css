@@ -1,0 +1,5 @@
+.header__logo {
+    width: calc((38.26 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 103.74px);
+    margin-bottom: calc((9.4 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 31.6px);
+    margin-left: calc(8px - (8 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px));
+}

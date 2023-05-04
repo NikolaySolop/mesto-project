@@ -1,0 +1,9 @@
+.card__favourite-icon {
+    width: 22px;
+    padding: 0 calc((10 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 20px) 0 0;
+}
+
+.card__favourite-icon:hover {
+    opacity: 60%;
+}
+

@@ -1,0 +1,51 @@
+/*vendor*/
+@import url(../../vendor/normalize.css);
+@import url(../../vendor/fonts.css);
+
+/*page-root*/
+@import url(../page-root/page-root.css);
+
+/*content*/
+@import url(../content/content.css);
+
+/*header*/
+@import url(../header/header.css);
+@import url(../header/__logo/header__image.css);
+@import url(../header/__line/header__line.css);
+
+/*profile*/
+@import url(../profile/profile.css);
+@import url(../profile/__avatar/profile__avatar.css);
+@import url(../profile/__info/profile__info.css);
+@import url(../profile/__name/profile__name.css);
+@import url(../profile/__card/profile__card.css);
+@import url(../profile/__edit-button/profile__edit-button.css);
+@import url(../profile/__subheading/profile__subheading.css);
+@import url(../profile/__add-button/profile__add-button.css);
+
+/*galley*/
+@import url(../gallery/gallery.css);
+
+/*card*/
+@import url(../card/card.css);
+@import url(../card/__item/card__item.css);
+@import url(../card/__caption/card__caption.css);
+@import url(../card/__favourite/card__favourite.css);
+@import url(../card/__favourite-icon/card__favourite-icon.css);
+@import url(../card/__image/card__image.css);
+@import url(../card/__title/card__title.css);
+@import url(../card/__title-overflow/card__title-overflow.css);
+
+/*footer*/
+@import url(../footer/footer.css);
+@import url(../footer/__copyright/footer__copyright.css);
+
+/*popup*/
+@import url(../popup/popup.css);
+@import url(../popup/__container/popup__container.css);
+@import url(../popup/__close-button/popup__close-button.css);
+@import url(../popup/__heading/popup__heading.css);
+@import url(../form/__item/form__item.css);
+@import url(../form/__item/_distance/form__item_distance.css);
+@import url(../form/__save-button/form__save-button.css);
+@import url(../popup/_opened/popup_opened.css);

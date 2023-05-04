@@ -1,0 +1,12 @@
+.footer {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding-top: calc((18 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 48px);
+    padding-left: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
+    padding-right: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
+    padding-bottom: calc((24 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 36px);
+}

@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding-top: calc((17 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 28px);
+    padding-right: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
+    padding-left: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
+    padding-bottom: 36px;
+}
+
