@@ -2,7 +2,8 @@
     display: grid;
     grid-template-columns: repeat(2, max-content) auto;
     width: 100%;
-    padding-bottom: 51px;
+    padding: 36px 0 51px;
+    border-top: solid 1px #545454;
 }
 
 @media screen and (max-width: 1150px) {
@@ -10,5 +11,12 @@
         grid-template-columns: 1fr;
         justify-items: center;
         padding-bottom: 36px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .profile {
+        border-top: none;
     }
 }

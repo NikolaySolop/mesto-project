@@ -1,3 +1,0 @@
-.form__item_distance {
-    margin: 30px 0 calc((3 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 45px);
-}

@@ -2,9 +2,13 @@
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: calc((4 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 14px);
+    font-size: 18px;
     line-height: calc(21.78/18);
     color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 500px;
 
     margin: 16px 0 0;
     padding: 0;
@@ -13,5 +17,28 @@
 @media screen and (max-width: 1150px) {
     .profile__subheading {
         margin: 14px 0 0;
+        font-size: 18px;
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .profile__subheading {
+        max-width: 350px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__subheading {
+        max-width: 250px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .profile__subheading {
+        max-width: 220px;
+        font-size: 14px;
     }
 }

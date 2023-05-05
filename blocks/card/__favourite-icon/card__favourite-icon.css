@@ -1,9 +1,12 @@
 .card__favourite-icon {
-    width: 22px;
-    padding: 0 calc((10 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 20px) 0 0;
+    width: 25px;
+    background: url("../../../images/icons/gallery-favourite-off.svg") white no-repeat center;
+    border: none;
+    margin: 0 19px 0 5px;
 }
 
 .card__favourite-icon:hover {
     opacity: 60%;
+    cursor: pointer;
 }
 

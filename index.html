@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="blocks/pages/index.css">
+    <link rel="stylesheet" href="pages/index.css">
     <title>Место</title>
 </head>
 <body>
@@ -11,7 +11,6 @@
     <!---HEADER--->
     <header class="header">
         <img class="header__logo" src="images/logos/logo-mesto.svg" alt="Логотип с МЕСТО Россия">
-        <img class="header__line" src="images/header/header-line.jpg" alt="Разделительная линия">
     </header>
 
 
@@ -21,77 +20,60 @@
             <img class="profile__avatar" src="images/profile/profile-avatar.jpg" alt="Фотография Жака-Ив Кусто">
             <div class="profile__info">
                 <div class="profile__card">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <img class="profile__edit-button" src="images/profile/profile-edit_button.svg"
-                         alt="Кнопка редактирования профиля">
+                    <h1 class="profile__name"><span>Жак-Ив Кусто</span></h1>
+                    <button class="profile__edit-button" type="button"></button>
                 </div>
-                <p class="profile__subheading">Исследователь океана</p>
+                <p class="profile__subheading"><span>Исследователь океана</span></p>
             </div>
-            <div class="profile__add-button"></div>
+            <button class="profile__add-button" type="button"></button>
         </section>
 
         <!---GALLERY--->
-        <section>
+        <section class="gallery">
             <ul class="card">
                 <li class="card__item">
                     <img class="card__image" src="images/gallery/gallery-karachaevsk.jpg" alt="Постройки в горах">
                     <div class="card__caption">
-                        <p class="card__title">Карачаевск</p>
-                        <img class="card__favourite-icon" src="images/icons/gallery-favourite-off.svg" alt="Лайк">
+                        <h2 class="card__title"><span class="overflow">Карачаевск</span></h2>
+                        <button class="card__favourite-icon" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
                     <img class="card__image" src="images/gallery/gallery-elbrus.jpg" alt="Рассвет">
                     <div class="card__caption">
-                        <p class="card__title">Гора Эльбрус</p>
-                        <img class="card__favourite-icon" src="images/icons/gallery-favourite-off.svg" alt="Лайк">
+                        <h2 class="card__title"><span class="overflow">Гора Эльбрус</span></h2>
+                        <button class="card__favourite-icon" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
                     <img class="card__image" src="images/gallery/gallery-dombai.jpg" alt="Горы">
                     <div class="card__caption">
-                        <p class="card__title">Домбай</p>
-                        <img class="card__favourite-icon" src="images/icons/gallery-favourite-off.svg" alt="Лайк">
+                        <h2 class="card__title"><span class="overflow">Домбай</span></h2>
+                        <button class="card__favourite-icon" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
                     <img class="card__image" src="images/gallery/gallery-elbrus.jpg" alt="Рассвет">
                     <div class="card__caption">
-                        <p class="card__title">Гора Эльбрус</p>
-                        <img class="card__favourite-icon" src="images/icons/gallery-favourite-off.svg" alt="Лайк">
+                        <h2 class="card__title"><span class="overflow">Гора Эльбрус</span></h2>
+                        <button class="card__favourite-icon" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
                     <img class="card__image" src="images/gallery/gallery-dombai.jpg" alt="Горы">
                     <div class="card__caption">
-                        <p class="card__title">Домбай</p>
-                        <img class="card__favourite-icon" src="images/icons/gallery-favourite-off.svg" alt="Лайк">
+                        <h2 class="card__title"><span class="overflow">Домбай</span></h2>
+                        <button class="card__favourite-icon" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
                     <img class="card__image" src="images/gallery/gallery-karachaevsk.jpg" alt="Постройки в горах">
                     <div class="card__caption">
-                        <p class="card__title"><span class="card__title-overflow">Карачаево-Черкессия</span></p>
-                        <img class="card__favourite-icon" src="images/icons/gallery-favourite-off.svg" alt="Лайк">
+                        <h2 class="card__title"><span class="overflow">Карачаево-Черкессия</span></h2>
+                        <button class="card__favourite-icon" type="button"></button>
                     </div>
                 </li>
             </ul>
-        </section>
-
-        <!---POP-UP--->
-        <section>
-            <div class="popup popup_opened">
-                <div class="popup__container">
-                    <p class="popup__heading">Редактировать профиль</p>
-                    <img class="popup__close-button" src="images/icons/close-icon.svg" alt="Закрыть">
-                    <form class="form__profile">
-                        <input class="form__item" type="text" name="fullname" placeholder="Жак-Ив Кусто">
-                        <input class="form__item form__item_distance" type="text" name="profession"
-                               placeholder="Исследователь океана">
-                        <input class="popup__save-button" type="submit" value="Сохранить">
-                    </form>
-                </div>
-            </div>
         </section>
 
 
@@ -103,5 +85,20 @@
     </footer>
 
 </div>
+
+<!---POP-UP--->
+<section class="popup">
+    <div class="popup__container">
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <button class="popup__close-button" type="reset"></button>
+        <form class="form__profile" name="profile">
+            <input class="form__item" type="text" name="fullname" placeholder="Жак-Ив Кусто">
+            <input class="form__item" type="text" name="profession"
+                   placeholder="Исследователь океана">
+            <button class="form__save-button" type="submit">Сохранить</button>
+        </form>
+    </div>
+</section>
+
 </body>
 </html>

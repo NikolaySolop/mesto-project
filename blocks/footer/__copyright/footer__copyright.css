@@ -2,10 +2,28 @@
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: calc((4 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 14px);
-    line-height: calc(22/18);
+    font-size: 18px;
+    line-height: calc(22 / 18);
 
     color: #545454;
     margin: 0;
     padding: 0;
+}
+
+@media screen and (max-width: 700px) {
+    .footer__copyright {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .footer__copyright {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .footer__copyright {
+        font-size: 14px;
+    }
 }
