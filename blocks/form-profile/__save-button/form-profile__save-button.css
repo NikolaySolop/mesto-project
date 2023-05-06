@@ -1,4 +1,4 @@
-.form__save-button {
+.form-profile__save-button {
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -20,17 +20,16 @@
     transition: opacity 0.5s ease;
 
     margin: 0;
-    padding: 14px 0 18px;
+    padding: 14px 0 14px;
 }
 
-.form__save-button:hover {
+.form-profile__save-button:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {
-    .form__save-button {
+    .form-profile__save-button {
         font-size: 14px;
-        padding-bottom: 14px;
     }
 }

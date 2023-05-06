@@ -3,7 +3,7 @@
     grid-template-columns: repeat(2, max-content) auto;
     width: 100%;
     padding: 36px 0 51px;
-    border-top: solid 1px #545454;
+    border-top: solid 1px rgba(84, 84, 84, 0.7);
 }
 
 @media screen and (max-width: 1150px) {

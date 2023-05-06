@@ -1,5 +1,6 @@
 .popup__container {
     position: absolute;
+    top: 195px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -14,6 +15,7 @@
 
 @media screen and (max-width: 768px) {
     .popup__container {
+        top: 160px;
         width: 356px;
         padding: 30px 30px 30px;
     }
@@ -21,6 +23,7 @@
 
 @media screen and (max-width: 320px) {
     .popup__container {
+        top: 123px;
         width: 282px;
         padding: 25px 22px;
     }

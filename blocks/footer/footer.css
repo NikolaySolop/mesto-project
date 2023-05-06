@@ -5,8 +5,29 @@
     width: 100%;
 
     box-sizing: border-box;
-    padding-top: calc((18 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 48px);
-    padding-left: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
-    padding-right: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
-    padding-bottom: calc((24 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 36px);
+    padding: 66px 200px 60px;
+}
+
+@media screen and (max-width: 700px) {
+    .footer {
+        padding: 55px 91px 46px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .footer {
+        padding: 50px 44px 39px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .footer {
+        padding: 47px 44px 40px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer {
+        padding: 48px 19px 36px;
+    }
 }

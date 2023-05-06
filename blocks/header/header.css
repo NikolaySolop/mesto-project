@@ -7,11 +7,7 @@
     box-sizing: border-box;
     padding-top: 45px;
     padding-right: 200px;
-
-    /*формула интерполирует точки между размерами 19px при окне 320px и 200px (181 + 19) при окне 1280px */
-    /*при окне меньше 320px сохраняется размер 19px, при окне больше 1280px сохраняется размер 200px*/
-    /*попытка выстроить размеры медиа-запросами приводит к скачкообразному изменению параметра*/
-    padding-left: calc((181 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 19px);
+    padding-left: 200px;
 }
 
 
@@ -19,6 +15,7 @@
     .header {
         padding-top: 35px;
         padding-right: 91px;
+        padding-left: 91px;
     }
 }
 
@@ -26,6 +23,7 @@
     .header {
         padding-top: 30px;
         padding-right: 44px;
+        padding-left: 44px;
     }
 }
 
@@ -33,11 +31,14 @@
     .header {
         padding-top: 28px;
         padding-right: 25px;
+        padding-left: 25px;
     }
 }
 
 @media screen and (max-width: 320px) {
     .header {
-        border-bottom: solid 1px #545454;
+        padding-right: 19px;
+        padding-left: 19px;
+        border-bottom: solid 1px rgba(84, 84, 84, 0.7);
     }
 }

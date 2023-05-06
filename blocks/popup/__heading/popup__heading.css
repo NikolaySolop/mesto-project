@@ -2,16 +2,38 @@
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: 900;
-    /*формула интерполирует точки между размерами 18px при окне 320px и 24px (18 + 6) при окне 1280px */
-    /*при окне меньше 320px сохраняется размер 18px, при окне больше 1280px сохраняется размер 24px*/
-    font-size: calc((6 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 18px);
+    font-size: 24px;
     line-height: calc(29/24);
     color: black;
 
-    /*формула интерполирует точки между размерами 0px при окне 320px и 62px при окне 1280px */
-    /*при окне меньше 320px сохраняется размер 0px, при окне больше 1280px сохраняется размер 62px*/
-    margin: 0 0 calc(62px - (21 / (1280 - 320)) * (min(max(100vw, 320px), 1280px) - 320px) + 0px);
+    margin: 0 0 43px;
     padding: 0;
+}
 
+@media screen and (max-width: 700px) {
+    .popup__heading {
+        font-size: 22px;
+        margin: 0 0 57px;
+    }
+}
 
+@media screen and (max-width: 450px) {
+    .popup__heading {
+        font-size: 20px;
+        margin: 0 0 61px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .popup__heading {
+        font-size: 19px;
+        margin: 0 0 63px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .popup__heading {
+        font-size: 18px;
+        margin: 0 0 64px;
+    }
 }

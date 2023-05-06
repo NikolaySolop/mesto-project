@@ -4,9 +4,9 @@
 
     justify-self: end;
     align-self: center;
-    background: url("../../../images/profile/profile-add_button.svg") black no-repeat;
-    background-size: 150px 50px;
-    border: none;
+    background: black url("../../../images/profile/profile-add_button.svg") no-repeat center center;
+    background-size: 150px 22px;
+    border: solid 2px white;
 }
 
 .profile__add-button:hover {
@@ -17,7 +17,7 @@
 @media screen and (max-width: 1150px) {
     .profile__add-button {
         justify-self: center;
-        background-size: 282px 50px;
+        background-size: 282px 22px;
         width: 282px;
     }
 }
