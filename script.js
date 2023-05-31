@@ -49,19 +49,15 @@ const placePopupWindow = document.querySelector('.popup.popup__type_place');
 const placeFormInputFields = document.querySelectorAll('.form-place__item');
 const placeForm = document.querySelector('.form-place');
 
-
 // ---> cards
 const cardContainer = document.querySelector('.card');
 const cardTemplate = document.querySelector('#card').content;
-
-
+let likeButtons = document.querySelectorAll('.card__like');
+let trashButtons = document.querySelectorAll('.card__trash');
 
 
 // FUNCTIONS
-function togglePopupDisplay(element) {
-    element.classList.toggle('popup_opened');
-}
-
+// ---> generic
 function clearInputFields(fields) {
     fields.forEach(field => {
         field.value = '';
@@ -74,6 +70,12 @@ function setPlaceholderValues(formFields, placeholderValues) {
     });
 }
 
+// ---> profile popup
+function togglePopupDisplay(element) {
+    element.classList.toggle('popup_opened');
+}
+
+// ---> cards
 function createCard(cardInfo) {
     const cardElement = cardTemplate.querySelector('.card__item').cloneNode(true);
     cardElement.querySelector('.card__image').src = cardInfo.link;
@@ -90,6 +92,10 @@ function createCardsArray(cards) {
         fragment.append(cardElement);
     })
     return fragment
+}
+
+function toggleLike(element) {
+    element.classList.toggle('card__like_on');
 }
 
 
@@ -144,9 +150,26 @@ function handleSubmitPlaceForm(evt) {
 
 // ---> cards
 function handleCreateCardList(){
+    console.log('create')
     const cards = createCardsArray(initialCards);
     cardContainer.append(cards);
+    likeButtons = document.querySelectorAll('.card__like');
+    trashButtons = document.querySelectorAll('.card__trash');
 }
+
+function handleLikeIcon(evt) {
+    console.log('like')
+    const clickedButton = evt.target;
+    toggleLike(clickedButton);
+}
+
+function handleDeleteCard(evt) {
+    const clickedCard = evt.target.closest('.card__item');
+    clickedCard.remove();
+}
+
+// EVENTS AFTER PAGE LOADING
+handleCreateCardList();
 
 // EVENT LISTENERS
 // ---> profile
@@ -157,7 +180,8 @@ profileForm.addEventListener('submit', handleSubmitProfileForm);
 // ---> places
 placeEditButton.addEventListener('click', handleOpenPlaceForm);
 placeCloseButton.addEventListener('click', handleClosePlaceForm);
-placeForm.addEventListener('submit', handleSubmitPlaceForm)
+placeForm.addEventListener('submit', handleSubmitPlaceForm) 
 
-// EVENTS AFTER PAGE LOADING
-handleCreateCardList();
+// --> cards
+likeButtons.forEach(button => button.addEventListener('click', handleLikeIcon));
+trashButtons.forEach(button => button.addEventListener('click', handleDeleteCard));
