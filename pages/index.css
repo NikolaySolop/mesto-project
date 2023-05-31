@@ -50,6 +50,10 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__type/popup__type_place.css);
 @import url(../blocks/popup/__type/popup__type_profile.css);
+@import url(../blocks/popup/__type/popup__type_picture.css);
+@import url(../blocks/popup/__picture-container/popup__picture-container.css);
+@import url(../blocks/popup/__picture-heading/popup__picture-heading.css);
+@import url(../blocks/popup/__picture/popup__picture.css);
 
 /*form-profile*/
 @import url(../blocks/form-profile/__item/form-profile__item.css);
