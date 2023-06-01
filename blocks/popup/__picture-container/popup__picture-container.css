@@ -1,10 +1,5 @@
 .popup__picture-container {
-    display: flex;
     position: relative;
-
-    align-self: center;
-    justify-self: center;
-
-    width: 75vw;
-    height: 75vh;
+    max-width: 75vw;
+    max-height: 75vh;
 }

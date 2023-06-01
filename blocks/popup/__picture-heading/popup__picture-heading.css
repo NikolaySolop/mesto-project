@@ -1,8 +1,13 @@
 .popup__picture-heading {
-    position: absolute;
-    margin: 0;
+    /*position: absolute;*/
+    margin: 10px 0 0;
     padding: 0;
-    top: 10px;
+    display: flex;
+    justify-self: left;
+    align-self: flex-start;
+
+    /*left: calc(25vh/2);*/
+    /*bottom: -25px;*/
 
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
