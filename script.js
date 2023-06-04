@@ -60,6 +60,9 @@ let cardImages = document.querySelectorAll('.card__image');
 const picturePopupWindow = document.querySelector('.popup.popup__type_picture');
 const picturePopupCloseButton = document.querySelector('.popup__close-button.popup__type_picture');
 
+// ---> general
+// const open
+
 
 // FUNCTIONS
 // ---> generic
@@ -75,9 +78,9 @@ function setPlaceholderValues(formFields, placeholderValues) {
     });
 }
 
-// ---> profile popup
 function togglePopupDisplay(element) {
     element.classList.toggle('popup_opened');
+    // element.style.animation = 'disappear 0.3s ease-in-out;'
 }
 
 
@@ -92,7 +95,7 @@ function createCard(cardInfo) {
 
 function createCardsArray(cards) {
     const fragment = document.createDocumentFragment();
-    
+
     cards.forEach(card => {
         const cardElement = createCard(card);
         fragment.append(cardElement);
@@ -141,13 +144,13 @@ function handleClosePlaceForm() {
 
 function handleSubmitPlaceForm(evt) {
     evt.preventDefault();
-    
+
     const cardData = {
         name: placeFormInputFields[0].value,
         link: placeFormInputFields[1].value,
         alt: placeFormInputFields[0].value
     }
-    
+
     const card = createCard(cardData);
     cardContainer.prepend(card);
 
@@ -155,7 +158,7 @@ function handleSubmitPlaceForm(evt) {
 }
 
 // ---> cards
-function handleCreateCardList(){
+function handleCreateCardList() {
     console.log('create')
     const cards = createCardsArray(initialCards);
     cardContainer.append(cards);
@@ -202,10 +205,20 @@ profileForm.addEventListener('submit', handleSubmitProfileForm);
 // ---> places
 placeEditButton.addEventListener('click', handleOpenPlaceForm);
 placeCloseButton.addEventListener('click', handleClosePlaceForm);
-placeForm.addEventListener('submit', handleSubmitPlaceForm) 
+placeForm.addEventListener('submit', handleSubmitPlaceForm)
 
 // --> cards
 likeButtons.forEach(button => button.addEventListener('click', handleLikeIcon));
 trashButtons.forEach(button => button.addEventListener('click', handleDeleteCard));
 cardImages.forEach(image => image.addEventListener('click', handleOpenCard));
 picturePopupCloseButton.addEventListener('click', handleCloseCard);
+
+document.addEventListener('keydown', function (event) {
+    const openedPicturePopup = document.querySelector('.popup.popup__type_picture.popup_opened');
+    const openedPlacePopup = document.querySelector('.popup.popup__type_place.popup_opened');
+    const openedProfilePopup = document.querySelector('.popup.popup__type_profile.popup_opened');
+    console.log(openedPicturePopup);
+    if (event.key === 'Escape' && openedPicturePopup !== null) {handleCloseCard()}
+    if (event.key === 'Escape' && openedPlacePopup !== null) {handleClosePlaceForm()}
+    if (event.key === 'Escape' && openedProfilePopup !== null) {handleCloseProfileForm()}
+});
