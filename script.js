@@ -54,6 +54,11 @@ const cardContainer = document.querySelector('.card');
 const cardTemplate = document.querySelector('#card').content;
 let likeButtons = document.querySelectorAll('.card__like');
 let trashButtons = document.querySelectorAll('.card__trash');
+let cardImages = document.querySelectorAll('.card__image');
+
+// ---> picture popup
+const picturePopupWindow = document.querySelector('.popup.popup__type_picture');
+const picturePopupCloseButton = document.querySelector('.popup__close-button.popup__type_picture');
 
 
 // FUNCTIONS
@@ -74,6 +79,7 @@ function setPlaceholderValues(formFields, placeholderValues) {
 function togglePopupDisplay(element) {
     element.classList.toggle('popup_opened');
 }
+
 
 // ---> cards
 function createCard(cardInfo) {
@@ -155,10 +161,10 @@ function handleCreateCardList(){
     cardContainer.append(cards);
     likeButtons = document.querySelectorAll('.card__like');
     trashButtons = document.querySelectorAll('.card__trash');
+    cardImages = document.querySelectorAll('.card__image');
 }
 
 function handleLikeIcon(evt) {
-    console.log('like')
     const clickedButton = evt.target;
     toggleLike(clickedButton);
 }
@@ -166,6 +172,22 @@ function handleLikeIcon(evt) {
 function handleDeleteCard(evt) {
     const clickedCard = evt.target.closest('.card__item');
     clickedCard.remove();
+}
+
+function handleOpenCard(evt) {
+    const clickedCard = evt.target.closest('.card__item');
+    const clickedCardImage = clickedCard.querySelector('.card__image');
+    const clickedCardCaption = clickedCard.querySelector('.card__caption');
+    togglePopupDisplay(picturePopupWindow);
+    const picturePopup = picturePopupWindow.querySelector('.popup__picture');
+    const pictureHeadingPopup = picturePopupWindow.querySelector('.popup__picture-heading');
+    picturePopup.src = clickedCardImage.src;
+    picturePopup.alt = clickedCardImage.alt;
+    pictureHeadingPopup.textContent = clickedCardCaption.textContent;
+}
+
+function handleCloseCard() {
+    togglePopupDisplay(picturePopupWindow);
 }
 
 // EVENTS AFTER PAGE LOADING
@@ -185,3 +207,5 @@ placeForm.addEventListener('submit', handleSubmitPlaceForm)
 // --> cards
 likeButtons.forEach(button => button.addEventListener('click', handleLikeIcon));
 trashButtons.forEach(button => button.addEventListener('click', handleDeleteCard));
+cardImages.forEach(image => image.addEventListener('click', handleOpenCard));
+picturePopupCloseButton.addEventListener('click', handleCloseCard);
