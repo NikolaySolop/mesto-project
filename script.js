@@ -38,6 +38,9 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileCloseButton = document.querySelector('.popup__close-button.popup__type_profile');
 const profilePopupWindow = document.querySelector('.popup.popup__type_profile');
 const profileFormInputFields = document.querySelectorAll('.form-profile__item');
+const profileFormFullname = document.querySelector("input[name='fullname'][class='form-profile__item']");
+const profileFormProfession = document.querySelector("input[name='profession'][class='form-profile__item']");
+
 const profileForm = document.querySelector('.form-profile');
 const profileName = document.querySelector('.profile__name');
 const profileSubheading = document.querySelector('.profile__subheading');
@@ -46,41 +49,32 @@ const profileSubheading = document.querySelector('.profile__subheading');
 const placeEditButton = document.querySelector('.profile__add-button');
 const placeCloseButton = document.querySelector('.popup__close-button.popup__type_place');
 const placePopupWindow = document.querySelector('.popup.popup__type_place');
-const placeFormInputFields = document.querySelectorAll('.form-place__item');
+const placeFormPlaceField = document.querySelector("input[name='place'][class='form-place__item']");
+const placeFormLinkField = document.querySelector("input[name='link'][class='form-place__item']");
 const placeForm = document.querySelector('.form-place');
 
 // ---> cards
 const cardContainer = document.querySelector('.card');
 const cardTemplate = document.querySelector('#card').content;
-let likeButtons = document.querySelectorAll('.card__like');
-let trashButtons = document.querySelectorAll('.card__trash');
-let cardImages = document.querySelectorAll('.card__image');
 
 // ---> picture popup
 const picturePopupWindow = document.querySelector('.popup.popup__type_picture');
 const picturePopupCloseButton = document.querySelector('.popup__close-button.popup__type_picture');
 
-// ---> general
-// const open
-
-
 // FUNCTIONS
 // ---> generic
-function clearInputFields(fields) {
-    fields.forEach(field => {
-        field.value = '';
-    });
-}
-
 function setPlaceholderValues(formFields, placeholderValues) {
     formFields.forEach((field, index) => {
         field.placeholder = placeholderValues[index].textContent;
     });
 }
 
-function togglePopupDisplay(element) {
-    element.classList.toggle('popup_opened');
-    // element.style.animation = 'disappear 0.3s ease-in-out;'
+function openPopup(element) {
+    element.classList.add('popup_opened');
+}
+
+function closePopup(element) {
+    element.classList.remove('popup_opened');
 }
 
 
@@ -90,6 +84,9 @@ function createCard(cardInfo) {
     cardElement.querySelector('.card__image').src = cardInfo.link;
     cardElement.querySelector('.card__image').alt = cardInfo.alt;
     cardElement.querySelector('.card__title').textContent = cardInfo.name;
+    cardElement.querySelector('.card__trash').addEventListener('click', handleDeleteCard);
+    cardElement.querySelector('.card__like').addEventListener('click', handleLikeIcon);
+    cardElement.querySelector('.card__image').addEventListener('click', handleOpenCard);
     return cardElement
 }
 
@@ -111,20 +108,20 @@ function toggleLike(element) {
 // HANDLERS
 // ---> profile popup
 function handleOpenProfileForm() {
-    togglePopupDisplay(profilePopupWindow);
+    openPopup(profilePopupWindow);
     setPlaceholderValues(profileFormInputFields, [profileName, profileSubheading]);
 }
 
 function handleCloseProfileForm() {
-    togglePopupDisplay(profilePopupWindow);
-    clearInputFields(profileFormInputFields);
+    closePopup(profilePopupWindow);
+    profileForm.reset()
 }
 
 function handleSubmitProfileForm(evt) {
     evt.preventDefault();
 
-    const nameInput = profileFormInputFields[0].value;
-    const subheadingInput = profileFormInputFields[1].value;
+    const nameInput = profileFormFullname.value;
+    const subheadingInput = profileFormProfession.value;
 
     profileName.textContent = (nameInput === '') ? profileName.textContent : nameInput;
     profileSubheading.textContent = (subheadingInput === '') ? profileSubheading.textContent : subheadingInput;
@@ -134,21 +131,21 @@ function handleSubmitProfileForm(evt) {
 
 // ---> place popup
 function handleOpenPlaceForm() {
-    togglePopupDisplay(placePopupWindow);
+    openPopup(placePopupWindow);
 }
 
 function handleClosePlaceForm() {
-    togglePopupDisplay(placePopupWindow);
-    clearInputFields(placeFormInputFields);
+    closePopup(placePopupWindow);
+    placeForm.reset();
 }
 
 function handleSubmitPlaceForm(evt) {
     evt.preventDefault();
 
     const cardData = {
-        name: placeFormInputFields[0].value,
-        link: placeFormInputFields[1].value,
-        alt: placeFormInputFields[0].value
+        name: placeFormPlaceField.value,
+        link: placeFormLinkField.value,
+        alt: placeFormPlaceField.value
     }
 
     const card = createCard(cardData);
@@ -159,12 +156,8 @@ function handleSubmitPlaceForm(evt) {
 
 // ---> cards
 function handleCreateCardList() {
-    console.log('create')
     const cards = createCardsArray(initialCards);
     cardContainer.append(cards);
-    likeButtons = document.querySelectorAll('.card__like');
-    trashButtons = document.querySelectorAll('.card__trash');
-    cardImages = document.querySelectorAll('.card__image');
 }
 
 function handleLikeIcon(evt) {
@@ -181,7 +174,7 @@ function handleOpenCard(evt) {
     const clickedCard = evt.target.closest('.card__item');
     const clickedCardImage = clickedCard.querySelector('.card__image');
     const clickedCardCaption = clickedCard.querySelector('.card__caption');
-    togglePopupDisplay(picturePopupWindow);
+    openPopup(picturePopupWindow);
     const picturePopup = picturePopupWindow.querySelector('.popup__picture');
     const pictureHeadingPopup = picturePopupWindow.querySelector('.popup__picture-heading');
     picturePopup.src = clickedCardImage.src;
@@ -190,7 +183,7 @@ function handleOpenCard(evt) {
 }
 
 function handleCloseCard() {
-    togglePopupDisplay(picturePopupWindow);
+    closePopup(picturePopupWindow);
 }
 
 // EVENTS AFTER PAGE LOADING
@@ -208,9 +201,6 @@ placeCloseButton.addEventListener('click', handleClosePlaceForm);
 placeForm.addEventListener('submit', handleSubmitPlaceForm)
 
 // --> cards
-likeButtons.forEach(button => button.addEventListener('click', handleLikeIcon));
-trashButtons.forEach(button => button.addEventListener('click', handleDeleteCard));
-cardImages.forEach(image => image.addEventListener('click', handleOpenCard));
 picturePopupCloseButton.addEventListener('click', handleCloseCard);
 
 document.addEventListener('keydown', function (event) {
