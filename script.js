@@ -60,13 +60,14 @@ const cardTemplate = document.querySelector('#card').content;
 // ---> picture popup
 const picturePopupWindow = document.querySelector('.popup.popup__type_picture');
 const picturePopupCloseButton = document.querySelector('.popup__close-button.popup__type_picture');
+const picturePopup = picturePopupWindow.querySelector('.popup__picture');
+const pictureHeadingPopup = picturePopupWindow.querySelector('.popup__picture-heading');
 
 // FUNCTIONS
 // ---> generic
-function setPlaceholderValues(formFields, placeholderValues) {
-    formFields.forEach((field, index) => {
-        field.placeholder = placeholderValues[index].textContent;
-    });
+function setDefaultValues(){
+    profileFormFullname.value = profileName.textContent;
+    profileFormProfession.value = profileSubheading.textContent;
 }
 
 function openPopup(element) {
@@ -109,7 +110,7 @@ function toggleLike(element) {
 // ---> profile popup
 function handleOpenProfileForm() {
     openPopup(profilePopupWindow);
-    setPlaceholderValues(profileFormInputFields, [profileName, profileSubheading]);
+    setDefaultValues();
 }
 
 function handleCloseProfileForm() {
@@ -175,8 +176,7 @@ function handleOpenCard(evt) {
     const clickedCardImage = clickedCard.querySelector('.card__image');
     const clickedCardCaption = clickedCard.querySelector('.card__caption');
     openPopup(picturePopupWindow);
-    const picturePopup = picturePopupWindow.querySelector('.popup__picture');
-    const pictureHeadingPopup = picturePopupWindow.querySelector('.popup__picture-heading');
+
     picturePopup.src = clickedCardImage.src;
     picturePopup.alt = clickedCardImage.alt;
     pictureHeadingPopup.textContent = clickedCardCaption.textContent;
@@ -208,7 +208,13 @@ document.addEventListener('keydown', function (event) {
     const openedPlacePopup = document.querySelector('.popup.popup__type_place.popup_opened');
     const openedProfilePopup = document.querySelector('.popup.popup__type_profile.popup_opened');
     console.log(openedPicturePopup);
-    if (event.key === 'Escape' && openedPicturePopup !== null) {handleCloseCard()}
-    if (event.key === 'Escape' && openedPlacePopup !== null) {handleClosePlaceForm()}
-    if (event.key === 'Escape' && openedProfilePopup !== null) {handleCloseProfileForm()}
+    if (event.key === 'Escape' && openedPicturePopup !== null) {
+        handleCloseCard()
+    }
+    if (event.key === 'Escape' && openedPlacePopup !== null) {
+        handleClosePlaceForm()
+    }
+    if (event.key === 'Escape' && openedProfilePopup !== null) {
+        handleCloseProfileForm()
+    }
 });
