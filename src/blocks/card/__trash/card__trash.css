@@ -6,7 +6,7 @@
     height: 19px;
     background: url("../../../images/icons/trash.svg") no-repeat;
     border: none;
-    z-index: 1;
+    z-index: 15;
 
 }
 

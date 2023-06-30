@@ -10,15 +10,18 @@ const profilePopupWindow = document.querySelector('.popup.popup__type_profile');
 const profileFormFullname = document.querySelector("#popup__form-profile-input-name");
 const profileFormProfession = document.querySelector("#popup__form-profile-input-profession");
 
-const profileForm = document.querySelector('.popup__form_type_profile');
+const profileForm = document.forms["profile"];
 const profileName = document.querySelector('.profile__name');
 const profileSubheading = document.querySelector('.profile__subheading');
 
 // ---> place popup
+const placeForm = document.forms["place"];
 const placePopupWindow = document.querySelector('.popup.popup__type_place');
 const placeFormPlaceField = document.querySelector("#popup__form-place-input-name");
 const placeFormLinkField = document.querySelector("#popup__form-place-input-url");
 
+// ---> popups
+const closeButtons = document.querySelectorAll('.popup__close-button');
 
 // FUNCTIONS
 // ---> generic
@@ -27,7 +30,7 @@ function setDefaultValues() {
     profileFormProfession.value = profileSubheading.textContent;
 }
 
-function inputsValidation(inputList, selectorsAndClasses) {
+function validateInputs(inputList, selectorsAndClasses) {
     inputList.forEach((inputElement) => {
         const buttonElement = inputElement.closest(selectorsAndClasses.formSelector).querySelector(selectorsAndClasses.submitButtonSelector);
         toggleButtonState(inputList, buttonElement, selectorsAndClasses.inactiveButtonClass);
@@ -41,7 +44,7 @@ function inputsValidation(inputList, selectorsAndClasses) {
 function handleOpenProfileForm() {
     openPopup(profilePopupWindow);
     setDefaultValues();
-    inputsValidation([profileFormFullname, profileFormProfession], validationSelectors)
+    validateInputs([profileFormFullname, profileFormProfession], validationSelectors)
 }
 
 
@@ -64,6 +67,7 @@ function handleOpenPlaceForm() {
 
 function handleSubmitPlaceForm(evt) {
     evt.preventDefault();
+    const popup = evt.target.closest('.popup');
 
     const cardData = {
         name: placeFormPlaceField.value,
@@ -74,10 +78,23 @@ function handleSubmitPlaceForm(evt) {
     const card = createCard(cardData);
     cardContainer.prepend(card);
 
-    closePopup(evt.target.closest('.popup'));
+    closePopup(popup);
+    placeForm.reset()
+}
+
+// ---> all popups
+function setCloseEventListenersToCrosses() {
+    closeButtons.forEach((button) => {
+        const popup = button.closest('.popup');
+        button.addEventListener('click', () => closePopup(popup));
+    });
 }
 
 export {
     handleOpenProfileForm, handleSubmitProfileForm,
     handleOpenPlaceForm, handleSubmitPlaceForm,
+    setCloseEventListenersToCrosses
 };
+
+
+

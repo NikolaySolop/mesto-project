@@ -76,6 +76,11 @@ const enableValidation = (formsDataSet) => {
             formsDataSet.inputErrorClass,
             formsDataSet.errorClass
         );
+        const buttonElement = formElement.querySelector(formsDataSet.submitButtonSelector);
+        formElement.addEventListener('reset', () => {
+            buttonElement.disabled = true;
+            buttonElement.classList.add(formsDataSet.inactiveButtonClass);
+        });
     });
 };
 

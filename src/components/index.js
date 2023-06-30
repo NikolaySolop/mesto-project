@@ -4,7 +4,8 @@ import {
     handleOpenProfileForm,
     handleSubmitProfileForm,
     handleOpenPlaceForm,
-    handleSubmitPlaceForm
+    handleSubmitPlaceForm,
+    setCloseEventListenersToCrosses
 } from './modal'
 
 import {handleCreateCardList, handleLikeIcon, handleDeleteCard, handleOpenCard} from './card'
@@ -39,6 +40,7 @@ handleCreateCardList();
 // EVENT LISTENERS
 //modal popups
 enableValidation(validationSelectors);
+setCloseEventListenersToCrosses();
 
 // ---> profile
 profileEditButton.addEventListener('click', handleOpenProfileForm);

@@ -48,8 +48,9 @@ const pictureHeadingPopup = picturePopupWindow.querySelector('.popup__picture-he
 // ---> cards
 function createCard(cardInfo) {
     const cardElement = cardTemplate.querySelector('.card__item').cloneNode(true);
-    cardElement.querySelector('.card__image').src = cardInfo.link;
-    cardElement.querySelector('.card__image').alt = cardInfo.alt;
+    const cardImage = cardElement.querySelector('.card__image');
+    cardImage.src = cardInfo.link;
+    cardImage.alt = cardInfo.alt;
     cardElement.querySelector('.card__title').textContent = cardInfo.name;
     return cardElement
 }
