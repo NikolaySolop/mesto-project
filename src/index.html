@@ -16,7 +16,8 @@
     <main class="content">
         <!---PROFILE--->
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/profile/profile-avatar.jpg')%>" alt="Фотография Жака-Ив Кусто">
+            <img class="profile__avatar" src="<%=require('./images/profile/profile-avatar.jpg')%>"
+                 alt="Фотография Жака-Ив Кусто">
             <div class="profile__info">
                 <div class="profile__card">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -47,11 +48,35 @@
     <div class="popup__container">
         <h3 class="popup__heading">Редактировать профиль</h3>
         <button class="popup__close-button popup__type_profile" type="reset"></button>
-        <form class="form-profile" name="profile">
-            <input class="form-profile__item" type="text" name="fullname" placeholder="Введите имя">
-            <input class="form-profile__item" type="text" name="profession"
-                   placeholder="Введите наименование профессии">
-            <button class="form-profile__save-button" type="submit">Сохранить</button>
+        <form class="popup__form popup__form_type_profile" name="profile" novalidate>
+            <input
+                    id="popup__form-profile-input-name"
+                    class="popup__form-input popup__form-input_type_error"
+                    type="text"
+                    name="fullname"
+                    placeholder="Введите имя"
+                    minlength="2"
+                    maxlength="40"
+                    pattern="[a-zA-Zа-яА-Я\-\s]+$"
+                    data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                    required>
+            <span class="popup__form-profile-input-name-error popup__form-span-error popup__form-span-error_active"
+            >Текст ошибки</span>
+            <input
+                    id="popup__form-profile-input-profession"
+                    class="popup__form-input popup__form-input_type_error"
+                    type="text"
+                    name="profession"
+                    placeholder="Введите наименование профессии"
+                    minlength="2"
+                    maxlength="200"
+                    pattern="[a-zA-Zа-яА-Я\-\s]+$"
+                    data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                    required>
+            <span class="popup__form-profile-input-profession-error popup__form-span-error popup__form-span-error_active"
+            >Текст ошибки</span>
+            <button class="popup__form-save-button" type="submit">Сохранить
+            </button>
         </form>
     </div>
 </section>
@@ -61,10 +86,33 @@
     <div class="popup__container">
         <h3 class="popup__heading">Новое место</h3>
         <button class="popup__close-button popup__type_place" type="reset"></button>
-        <form class="form-place" name="place">
-            <input class="form-place__item" type="text" name="place" placeholder="Название" required>
-            <input class="form-place__item" type="text" name="link" placeholder="Ссылка на картинку" required>
-            <button class="form-place__save-button" type="submit">Создать</button>
+        <form class="popup__form popup__form_type_place" name="place" novalidate>
+            <input
+                    id="popup__form-place-input-name"
+                    class="popup__form-input"
+                    type="text"
+                    name="place"
+                    placeholder="Название"
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[a-zA-Zа-яА-Я\-\s]+$"
+                    data-error-message="Поле может содержать только латинские буквы, кириллические буквы, знаки дефиса и пробелы."
+                    required>
+            <span class="popup__form-place-input-name-error popup__form-span-error
+            ">Текст ошибки</span>
+            <input
+                    id="popup__form-place-input-url"
+                    class="popup__form-input"
+                    type="url"
+                    name="link"
+                    placeholder="Ссылка на картинку"
+                    required>
+            <span class="
+                    popup__form-place-input-url-error
+                    popup__form-span-error
+<!--                    popup__form-span-error_active-->
+            ">Текст ошибки</span>
+            <button class="popup__form-save-button" type="submit" disabled>Создать</button>
         </form>
     </div>
 </section>

@@ -56,9 +56,11 @@
 @import url(../blocks/popup/__picture/popup__picture.css);
 
 /*form-profile*/
-@import url(../blocks/form-profile/__item/form-profile__item.css);
-@import url(../blocks/form-profile/__save-button/form-profile__save-button.css);
+@import url(../blocks/popup/__form-input/popup__form-input.css);
+@import url(../blocks/popup/__form-save-button/popup__form-save-button.css);
+@import url(../blocks/popup/__form-save-button/popup__form-save-button_inactive.css);
 
-/*form-place*/
-@import url('../blocks/form-place/__item/form-place__item.css');
-@import url('../blocks/form-place/__save-button/form-place__save-button.css');
+/*form-related*/
+@import url(../blocks/popup/__form-input/_type/popup__form-input_type_error.css);
+@import url(../blocks/popup/__form-span-error/popup__form-span-error.css);
+@import url(../blocks/popup/__form-span-error/_active/popup__form-span-error_active.css);

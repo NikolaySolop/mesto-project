@@ -1,4 +1,4 @@
-.form-profile__save-button {
+.popup__form-save-button {
     font-family: Inter, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -23,13 +23,13 @@
     padding: 14px 0 14px;
 }
 
-.form-profile__save-button:hover {
+.popup__form-save-button:hover {
     opacity: 0.8;
     cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {
-    .form-profile__save-button {
+    .popup__form-save-button {
         font-size: 14px;
     }
 }
