@@ -18,8 +18,6 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-    const crossButton = popup.querySelector('.popup__close-button');
-    const form = popup.querySelector('.popup__form');
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', setEscButtonClose);
     popup.removeEventListener('click', setOverlayClickClose);

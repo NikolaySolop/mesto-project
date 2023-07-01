@@ -12,6 +12,16 @@ const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) 
     errorElement.textContent = '';
 };
 
+function disableButton(buttonElement, inactiveButtonClass) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add(inactiveButtonClass);
+}
+
+function enableButton(buttonElement, inactiveButtonClass) {
+    buttonElement.disabled = false;
+    buttonElement.classList.remove(inactiveButtonClass);
+}
+
 const isValid = (formElement, inputElement, inputErrorClass, errorClass) => {
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
@@ -34,11 +44,9 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
-        buttonElement.disabled = true;
-        buttonElement.classList.add(inactiveButtonClass);
+        disableButton(buttonElement, inactiveButtonClass);
     } else {
-        buttonElement.disabled = false;
-        buttonElement.classList.remove(inactiveButtonClass);
+        enableButton(buttonElement, inactiveButtonClass);
     }
 };
 
@@ -59,6 +67,14 @@ const setEventListeners = (formElement,
             isValid(formElement, inputElement, inputErrorClass, errorClass)
             toggleButtonState(inputList, buttonElement, inactiveButtonClass);
         });
+        // я думал, что логичнее перенести листенер резета в ниже на 91 строку, так в случае добавления в setEventListeners
+        // мы 2 раза навешиваем листенер на форму, потому что в цикле перебираем 2 раза поля (сколько полей, столько раз и навесим).
+        // А в решении ниже мы перебираем формы и получается на каждую форму вешаем по одному слушателю, но к этому
+        // добавляется лишний поиск кнопки.
+        // Не знаю, какое решение эффективнее...
+        formElement.addEventListener('reset', () => {
+            disableButton(buttonElement, inactiveButtonClass);
+        });
     });
 };
 
@@ -76,11 +92,6 @@ const enableValidation = (formsDataSet) => {
             formsDataSet.inputErrorClass,
             formsDataSet.errorClass
         );
-        const buttonElement = formElement.querySelector(formsDataSet.submitButtonSelector);
-        formElement.addEventListener('reset', () => {
-            buttonElement.disabled = true;
-            buttonElement.classList.add(formsDataSet.inactiveButtonClass);
-        });
     });
 };
 
