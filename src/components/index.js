@@ -10,6 +10,7 @@ import {
 
 import {handleCreateCardList, handleLikeIcon, handleDeleteCard, handleOpenCard} from './card'
 import {enableValidation} from './validate'
+import {getProfileData} from './api'
 
 // VARIABLES
 const validationSelectors = {
@@ -45,6 +46,7 @@ setCloseEventListenersToCrosses();
 // ---> profile
 profileEditButton.addEventListener('click', handleOpenProfileForm);
 profileForm.addEventListener('submit', handleSubmitProfileForm);
+getProfileData();
 
 // ---> places
 placeEditButton.addEventListener('click', handleOpenPlaceForm);

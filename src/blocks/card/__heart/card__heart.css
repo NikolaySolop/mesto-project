@@ -1,0 +1,14 @@
+.card__heart {
+    width: 23px;
+    height: 19px;
+    background: url("../../../images/icons/gallery-favourite-off.svg") white no-repeat center;
+    background-size: contain;
+    border: none;
+    margin: 0 20px 0 5px;
+}
+
+.card__heart:hover {
+    opacity: 60%;
+    cursor: pointer;
+}
+

@@ -1,12 +1,5 @@
 .card__like {
-    width: 25px;
-    background: url("../../../images/icons/gallery-favourite-off.svg") white no-repeat center;
-    border: none;
-    margin: 0 19px 0 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-
-.card__like:hover {
-    opacity: 60%;
-    cursor: pointer;
-}
-

@@ -1,18 +1,20 @@
 import {closePopup, openPopup} from './utils';
 import {isValid, toggleButtonState} from './validate';
 import {createCard, cardContainer} from './card'
-
 import {validationSelectors} from './index';
+import {patchProfileData, postCard} from './api'
 
 // ELEMENTS
 // ---> profile popup
 const profilePopupWindow = document.querySelector('.popup.popup__type_profile');
 const profileFormFullname = document.querySelector("#popup__form-profile-input-name");
 const profileFormProfession = document.querySelector("#popup__form-profile-input-profession");
-
 const profileForm = document.forms["profile"];
+
+const profile = document.querySelector('.profile');
 const profileName = document.querySelector('.profile__name');
 const profileSubheading = document.querySelector('.profile__subheading');
+const profileAvatar = document.querySelector('.profile__avatar');
 
 // ---> place popup
 const placeForm = document.forms["place"];
@@ -54,9 +56,7 @@ function handleSubmitProfileForm(evt) {
     const nameInput = profileFormFullname.value;
     const subheadingInput = profileFormProfession.value;
 
-    profileName.textContent = (nameInput === '') ? profileName.textContent : nameInput;
-    profileSubheading.textContent = (subheadingInput === '') ? profileSubheading.textContent : subheadingInput;
-
+    patchProfileData(nameInput, subheadingInput, profileName, profileSubheading)
     closePopup(evt.target.closest('.popup'));
 }
 
@@ -72,11 +72,8 @@ function handleSubmitPlaceForm(evt) {
     const cardData = {
         name: placeFormPlaceField.value,
         link: placeFormLinkField.value,
-        alt: placeFormPlaceField.value
     }
-
-    const card = createCard(cardData);
-    cardContainer.prepend(card);
+    postCard(cardData.name, cardData.link, createCard, cardContainer);
 
     closePopup(popup);
     placeForm.reset()
@@ -93,7 +90,8 @@ function setCloseEventListenersToCrosses() {
 export {
     handleOpenProfileForm, handleSubmitProfileForm,
     handleOpenPlaceForm, handleSubmitPlaceForm,
-    setCloseEventListenersToCrosses
+    setCloseEventListenersToCrosses,
+    profileName, profileSubheading, profileAvatar, profile
 };
 
 

@@ -32,11 +32,15 @@
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__item/card__item.css);
 @import url(../blocks/card/__caption/card__caption.css);
-@import url(../blocks/card/__like/card__like.css);
-@import url(../blocks/card/__like/_active/card__like_on.css);
+@import url(../blocks/card/__heart/card__heart.css);
+@import url(../blocks/card/__heart/_active/card__heart_on.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__title/card__title.css);
 @import url(../blocks/card/__trash/card__trash.css);
+@import url(../blocks/card/__like/card__like.css);
+@import url(../blocks/card/__likes-amount/card__likes-amount.css);
+@import url(../blocks/card/__likes-amount/_active/card__likes-amount_active_on.css);
+@import url(../blocks/card/__trash/_active/card__trash_active_on.css);
 
 /*footer*/
 @import url(../blocks/footer/footer.css);
