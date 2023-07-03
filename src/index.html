@@ -16,8 +16,11 @@
     <main class="content">
         <!---PROFILE--->
         <section class="profile">
-            <img class="profile__avatar" src="<%=require('./images/profile/profile-avatar.jpg')%>"
-                 alt="Фотография Жака-Ив Кусто">
+            <!--            <img class="profile__avatar" src="<%=require('./images/profile/profile-avatar.jpg')%>" alt="Фотография Жака-Ив Кусто">-->
+            <div class="profile__avatar">
+                <div class="profile__overlay"></div>
+                <button class="profile__pencil"></button>
+            </div>
             <div class="profile__info">
                 <div class="profile__card">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -116,6 +119,28 @@
     </div>
 </section>
 
+<!---POP-UP AVATAR--->
+<section class="popup popup__type_avatar">
+    <div class="popup__container">
+        <h3 class="popup__heading">Обновить аватар</h3>
+        <button class="popup__close-button" type="reset"></button>
+        <form class="popup__form popup__form_type_avatar" name="avatar" novalidate>
+            <input
+                    id="popup__form-avatar-input-url"
+                    class="popup__form-input"
+                    type="url"
+                    name="link"
+                    placeholder="Ссылка на картинку"
+                    required>
+            <span class="
+                    popup__form-avatar-input-url-error
+                    popup__form-span-error
+            ">Текст ошибки</span>
+            <button class="popup__form-save-button" type="submit" disabled>Сохранить</button>
+        </form>
+    </div>
+</section>
+
 <!---POP-UP PICTURE--->
 <section class="popup popup__type_picture">
     <div class="popup__picture-container">
@@ -134,7 +159,10 @@
         <img class="card__image" src="placeholder" alt="placeholder">
         <div class="card__caption">
             <h2 class="card__title">placeholder</h2>
-            <button class="card__like" type="button"></button>
+            <div class="card__like">
+                <button class="card__heart" type="button"></button>
+                <p class="card__likes-amount">0</p>
+            </div>
         </div>
     </li>
 </template>

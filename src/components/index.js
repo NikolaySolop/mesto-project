@@ -5,11 +5,14 @@ import {
     handleSubmitProfileForm,
     handleOpenPlaceForm,
     handleSubmitPlaceForm,
+    handleOpenAvatarForm,
+    handleSubmitAvatarProfileForm,
     setCloseEventListenersToCrosses
 } from './modal'
 
 import {handleCreateCardList, handleLikeIcon, handleDeleteCard, handleOpenCard} from './card'
 import {enableValidation} from './validate'
+import {getProfileData} from './api'
 
 // VARIABLES
 const validationSelectors = {
@@ -25,6 +28,8 @@ const validationSelectors = {
 // ---> profile popup
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileForm = document.querySelector('.popup__form_type_profile');
+const profileAvatarButton = document.querySelector('.profile__pencil');
+const profileAvatarForm = document.querySelector('.popup__type_avatar');
 
 // ---> place popup
 const placeEditButton = document.querySelector('.profile__add-button');
@@ -45,6 +50,9 @@ setCloseEventListenersToCrosses();
 // ---> profile
 profileEditButton.addEventListener('click', handleOpenProfileForm);
 profileForm.addEventListener('submit', handleSubmitProfileForm);
+profileAvatarButton.addEventListener('click', handleOpenAvatarForm);
+profileAvatarForm.addEventListener('submit', handleSubmitAvatarProfileForm);
+getProfileData();
 
 // ---> places
 placeEditButton.addEventListener('click', handleOpenPlaceForm);
