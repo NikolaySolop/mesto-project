@@ -1,4 +1,4 @@
-import {openPopup, closePopup} from './utils'
+import {openPopup} from './utils'
 import {deleteCard, dislikeCard, getCards, likeCard} from "./api";
 
 // VARIABLES
@@ -102,7 +102,7 @@ function cardIdSearch(evt) {
 // ---> cards
 function handleCreateCardList() {
     const fragment = document.createDocumentFragment();
-    getCards(createCard, fragment, cardContainer);
+    getCards(createCard, fragment);
 }
 
 function handleLikesUpdate(cardId, likesNumber) {

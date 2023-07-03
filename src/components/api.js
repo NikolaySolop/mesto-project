@@ -1,5 +1,9 @@
-import {profileName, profileSubheading, profileAvatar, profile} from './modal'
-import {cardContainer, handleLikesUpdate, handleLikeIcon, showLikes} from "./card";
+import {
+    profileName, profileSubheading, profileAvatarElement, profileFormSubmitButton,
+    profileFormFullname, profileFormProfession, profileAvatarFormSubmitButton, profilePlaceFormSubmitButton,
+} from './modal'
+
+import {cardContainer, handleLikesUpdate, showLikes, createCard} from "./card";
 
 const config = {
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-26',
@@ -22,8 +26,7 @@ export const getProfileData = () => {
         .then((data) => {
             profileName.textContent = data.name;
             profileSubheading.textContent = data.about;
-            profileAvatar.src = data.avatar;
-            profile.setAttribute('data-profile-id', data._id);
+            profileAvatarElement.style.backgroundImage = `url("${data.avatar}")`;
             return data
         })
         .catch((err) => {
@@ -31,7 +34,7 @@ export const getProfileData = () => {
         });
 }
 
-export const getCards = (createCard, fragment, cardContainer) => {
+export const getCards = (createCard, fragment) => {
     return fetch(`${config.baseUrl}/cards`, {
         method: 'GET',
         headers: config.headers,
@@ -49,20 +52,20 @@ export const getCards = (createCard, fragment, cardContainer) => {
             cardContainer.append(fragment);
         });
 
-    })
-        .catch((err) => {
-            console.log(err);
-        });
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 
-export const patchProfileData = (nameInput, subheadingInput, profileName, profileSubheading) => {
+export const patchProfileData = () => {
+    profileFormSubmitButton.textContent = 'Сохранение...'
     return fetch(`${config.baseUrl}/users/me`, {
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify({
-            name: nameInput,
-            about: subheadingInput
+            name: profileFormFullname.value,
+            about: profileFormProfession.value
         })
     }).then((res) => {
         if (res.ok) {
@@ -72,14 +75,38 @@ export const patchProfileData = (nameInput, subheadingInput, profileName, profil
     }).then((data) => {
         profileName.textContent = (data.name === '') ? profileName.textContent : data.name;
         profileSubheading.textContent = (data.about === '') ? profileSubheading.textContent : data.about;
-    })
-        .catch((err) => {
-            console.log(err);
-        });
+    }).catch((err) => {
+        console.log(err);
+    }).finally(() => {
+        profileFormSubmitButton.textContent = 'Сохранить';
+    });
+}
+
+export const patchAvatarPicture = (link) => {
+    profileAvatarFormSubmitButton.textContent = 'Сохранение...';
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+            avatar: link,
+        })
+    }).then((res) => {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+    }).then((data) => {
+        profileAvatarElement.style.backgroundImage = `url("${link}")`;
+    }).catch((err) => {
+        console.log(err);
+    }).finally(() => {
+        profileAvatarFormSubmitButton.textContent = 'Сохранить';
+    });
 }
 
 
-export const postCard = (name, link, createCard, cardContainer) => {
+export const postCard = (name, link) => {
+    profilePlaceFormSubmitButton.textContent = 'Сохранение...';
     return fetch(`${config.baseUrl}/cards`, {
         method: 'POST',
         headers: config.headers,
@@ -99,10 +126,11 @@ export const postCard = (name, link, createCard, cardContainer) => {
             cardContainer.prepend(card);
         });
 
-    })
-        .catch((err) => {
-            console.log(err);
-        });
+    }).catch((err) => {
+        console.log(err);
+    }).finally(() => {
+        profilePlaceFormSubmitButton.textContent = 'Сохраненить';
+    });
 }
 
 export const likeCard = (cardId) => {
@@ -118,10 +146,9 @@ export const likeCard = (cardId) => {
     }).then((data) => {
         handleLikesUpdate(data._id, data.likes.length);
         showLikes(null, data);
-    })
-        .catch((err) => {
-            console.log(err);
-        });
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 export const dislikeCard = (cardId) => {
@@ -137,10 +164,9 @@ export const dislikeCard = (cardId) => {
     }).then((data) => {
         handleLikesUpdate(data._id, data.likes.length);
         showLikes(null, data);
-    })
-        .catch((err) => {
-            console.log(err);
-        });
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 export const deleteCard = (cardId, cardElement) => {
@@ -156,8 +182,7 @@ export const deleteCard = (cardId, cardElement) => {
     }).then((data) => {
         cardElement.remove();
         return data
-    })
-        .catch((err) => {
-            console.log(err);
-        });
+    }).catch((err) => {
+        console.log(err);
+    });
 }

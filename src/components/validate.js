@@ -59,21 +59,20 @@ const setEventListeners = (formElement,
                            inputErrorClass,
                            errorClass) => {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+    // сорри, я совсем гитхабом разучился пользоваться
+    // в этот коммит попали наработки по следующему заданию.
+    // по текущему заданию исправления каснулись только файла validate
+    const buttonElement = formElement.querySelector(submitButtonSelector);
+
+    formElement.addEventListener('reset', () => {
+        disableButton(buttonElement, inactiveButtonClass);
+    });
 
     inputList.forEach((inputElement) => {
-        const buttonElement = inputElement.closest(formSelector).querySelector(submitButtonSelector);
         toggleButtonState(inputList, buttonElement, inactiveButtonClass);
         inputElement.addEventListener('input', () => {
             isValid(formElement, inputElement, inputErrorClass, errorClass)
             toggleButtonState(inputList, buttonElement, inactiveButtonClass);
-        });
-        // я думал, что логичнее перенести листенер резета в ниже на 91 строку, так в случае добавления в setEventListeners
-        // мы 2 раза навешиваем листенер на форму, потому что в цикле перебираем 2 раза поля (сколько полей, столько раз и навесим).
-        // А в решении ниже мы перебираем формы и получается на каждую форму вешаем по одному слушателю, но к этому
-        // добавляется лишний поиск кнопки.
-        // Не знаю, какое решение эффективнее...
-        formElement.addEventListener('reset', () => {
-            disableButton(buttonElement, inactiveButtonClass);
         });
     });
 };
