@@ -1,3 +1,5 @@
+import {profileForm} from "./utils";
+
 const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(inputErrorClass);
@@ -22,7 +24,7 @@ function enableButton(buttonElement, inactiveButtonClass) {
     buttonElement.classList.remove(inactiveButtonClass);
 }
 
-const isValid = (formElement, inputElement, inputErrorClass, errorClass) => {
+export const isValid = (formElement, inputElement, inputErrorClass, errorClass) => {
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
     } else {
@@ -42,7 +44,7 @@ const hasInvalidInput = (inputList) => {
     })
 };
 
-const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
+export const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
         disableButton(buttonElement, inactiveButtonClass);
     } else {
@@ -75,7 +77,7 @@ const setEventListeners = (formElement,
 };
 
 
-const enableValidation = (formsDataSet) => {
+export const enableValidation = (formsDataSet) => {
     const formList = Array.from(document.querySelectorAll(formsDataSet.formSelector));
 
     formList.forEach((formElement) => {
@@ -91,5 +93,10 @@ const enableValidation = (formsDataSet) => {
     });
 };
 
-
-export {enableValidation, isValid, toggleButtonState}
+export function validateInputs(inputList, selectorsAndClasses) {
+    inputList.forEach((inputElement) => {
+        const buttonElement = inputElement.closest(selectorsAndClasses.formSelector).querySelector(selectorsAndClasses.submitButtonSelector);
+        toggleButtonState(inputList, buttonElement, selectorsAndClasses.inactiveButtonClass);
+        isValid(profileForm, inputElement, selectorsAndClasses.inputErrorClass, selectorsAndClasses.errorClass);
+    })
+}

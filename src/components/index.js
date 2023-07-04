@@ -1,46 +1,133 @@
 import '../pages/index.css';
+import {createCard} from './card'
+import {enableValidation, validateInputs} from './validate'
+import {getCards, getProfileData, patchAvatarPicture, patchProfileData, postCard} from './api'
+import {closePopup, openPopup, setCloseEventListenersToCrosses} from "./modal";
 
 import {
-    handleOpenProfileForm,
-    handleSubmitProfileForm,
-    handleOpenPlaceForm,
-    handleSubmitPlaceForm,
-    handleOpenAvatarForm,
-    handleSubmitAvatarProfileForm,
-    setCloseEventListenersToCrosses
-} from './modal'
+    profileName,
+    profileSubheading,
+    profileAvatarElement,
+    profileAvatarFormSubmitButton,
+    profileFormSubmitButton,
+    placeProfileFormSubmitButton,
+    profileFormFullname,
+    profileFormProfession,
+    profileEditButton,
+    profileForm,
+    profilePopupWindow,
+    profileAvatarButton,
+    profileAvatarForm,
+    profileAvatarPopupWindow,
+    placeEditButton,
+    placeForm,
+    placeFormPlaceField,
+    placeFormLinkField,
+    placePopupWindow,
+    validationSelectors,
+    profileAvatarLinkField,
+    cardContainer,
+} from './utils'
 
-import {handleCreateCardList, handleLikeIcon, handleDeleteCard, handleOpenCard} from './card'
-import {enableValidation} from './validate'
-import {getProfileData} from './api'
+let userId = null;
 
-// VARIABLES
-const validationSelectors = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__form-input',
-    submitButtonSelector: '.popup__form-save-button',
-    inactiveButtonClass: 'popup__form-save-button_inactive',
-    inputErrorClass: 'popup__form-input_type_error',
-    errorClass: 'popup__form-span-error_active'
+// FUNCTIONS
+function updateProfileInfo(data) {
+    profileName.textContent = data.name;
+    profileSubheading.textContent = data.about;
+    profileAvatarElement.style.backgroundImage = `url("${data.avatar}")`;
 }
 
-// ELEMENTS
-// ---> profile popup
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileForm = document.querySelector('.popup__form_type_profile');
-const profileAvatarButton = document.querySelector('.profile__pencil');
-const profileAvatarForm = document.querySelector('.popup__type_avatar');
+function createCards(cards) {
+    const fragment = document.createDocumentFragment();
+    cards.forEach(card => {
+        const cardElement = createCard(card, userId);
+        fragment.append(cardElement);
+    })
+    cardContainer.append(fragment);
+}
 
-// ---> place popup
-const placeEditButton = document.querySelector('.profile__add-button');
-const placeForm = document.querySelector('.popup__form_type_place');
+function setDefaultValues() {
+    profileFormFullname.value = profileName.textContent;
+    profileFormProfession.value = profileSubheading.textContent;
+}
 
-// ---> gallery
-const gallery = document.querySelector('.gallery');
 
+// HANDLERS
+function handleOpenAvatarForm() {
+    openPopup(profileAvatarPopupWindow);
+}
+
+function handleOpenProfileForm() {
+    openPopup(profilePopupWindow);
+    setDefaultValues();
+    validateInputs([profileFormFullname, profileFormProfession], validationSelectors);
+}
+
+function handleOpenPlaceForm() {
+    openPopup(placePopupWindow);
+}
+
+function renderPageAtInit() {
+    const profile = getProfileData()
+    const cards = getCards()
+    Promise.all([profile, cards])
+        .then(results => {
+            const [profileData, cardsData] = results;
+            userId = profileData._id;
+            updateProfileInfo(profileData);
+            createCards(cardsData);
+        })
+        .catch(err => console.log(err))
+}
+
+function handleSubmitProfileForm(evt) {
+    evt.preventDefault();
+    profileFormSubmitButton.textContent = 'Сохранение...';
+    patchProfileData()
+        .then(data => {
+            profileName.textContent = (data.name === '') ? profileName.textContent : data.name;
+            profileSubheading.textContent = (data.about === '') ? profileSubheading.textContent : data.about;
+            closePopup(evt.target.closest('.popup'));
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+            profileFormSubmitButton.textContent = 'Сохранить';
+        })
+}
+
+function handleSubmitAvatarProfileForm(evt) {
+    evt.preventDefault();
+    profileAvatarFormSubmitButton.textContent = 'Сохранение...';
+    const avatarLink = profileAvatarLinkField.value;
+    patchAvatarPicture(avatarLink)
+        .then((data) => {
+            profileAvatarElement.style.backgroundImage = `url("${data.avatar}")`;
+            closePopup(evt.target.closest('.popup'));
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+            profileAvatarFormSubmitButton.textContent = 'Сохранить';
+        })
+}
+
+function handleSubmitPlaceForm(evt) {
+    evt.preventDefault();
+    placeProfileFormSubmitButton.textContent = 'Сохранение...';
+    postCard(placeFormPlaceField.value, placeFormLinkField.value)
+        .then((data) => {
+            const card = createCard(data, userId)
+            cardContainer.prepend(card);
+            closePopup(evt.target.closest('.popup'));
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+            placeProfileFormSubmitButton.textContent = 'Сохранить';
+        })
+}
 
 // EVENTS AFTER PAGE LOADING
-handleCreateCardList();
+renderPageAtInit();
 
 // EVENT LISTENERS
 //modal popups
@@ -50,18 +137,13 @@ setCloseEventListenersToCrosses();
 // ---> profile
 profileEditButton.addEventListener('click', handleOpenProfileForm);
 profileForm.addEventListener('submit', handleSubmitProfileForm);
-profileAvatarButton.addEventListener('click', handleOpenAvatarForm);
+profileAvatarElement.addEventListener('click', handleOpenAvatarForm);
 profileAvatarForm.addEventListener('submit', handleSubmitAvatarProfileForm);
-getProfileData();
 
 // ---> places
 placeEditButton.addEventListener('click', handleOpenPlaceForm);
 placeForm.addEventListener('submit', handleSubmitPlaceForm);
 
-// ---> gallery
-gallery.addEventListener('click', handleLikeIcon);
-gallery.addEventListener('click', handleDeleteCard);
-gallery.addEventListener('click', handleOpenCard);
 
 //EXPORTING
 export {validationSelectors}

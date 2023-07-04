@@ -17,8 +17,10 @@
 
 .profile__avatar:hover .profile__overlay {
     opacity: 0.8;
+    cursor: pointer;
 }
 
 .profile__avatar:hover .profile__pencil {
     opacity: 1;
+    cursor: pointer;
 }

@@ -1,49 +1,11 @@
-import {openPopup} from './utils'
-import {deleteCard, dislikeCard, getCards, likeCard} from "./api";
-
-// VARIABLES
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-        alt: 'Горы Архыза'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-        alt: 'Река, протекающая в горном массиве'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-        alt: 'Массив многоэтажек'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-        alt: 'Вид с подножья горы'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-        alt: 'Железнодорожная одноколейная дорога, проходящая через лесной массив'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-        alt: 'Замерзшее озеро Байкал'
-    }
-];
-
-// ELEMENTS
-// ---> cards
-const cardContainer = document.querySelector('.card');
-const cardTemplate = document.querySelector('#card').content;
-
-// ---> picture popup
-const picturePopupWindow = document.querySelector('.popup.popup__type_picture');
-const picturePopup = picturePopupWindow.querySelector('.popup__picture');
-const pictureHeadingPopup = picturePopupWindow.querySelector('.popup__picture-heading');
+import {openPopup} from './modal'
+import {deleteCard, dislikeCard, likeCard} from "./api";
+import {
+    cardTemplate,
+    picturePopupWindow,
+    picturePopup,
+    pictureHeadingPopup
+} from './utils'
 
 // FUNCTIONS
 // ---> cards
@@ -79,20 +41,7 @@ function showTrashIcon(cardElement, cardInfo, userId) {
     }
 }
 
-function createCard(cardInfo, userID) {
-    const cardElement = cardTemplate.querySelector('.card__item').cloneNode(true);
-    const cardImage = cardElement.querySelector('.card__image');
-    const cardTitle = cardElement.querySelector('.card__title');
-    cardElement.setAttribute('data-id', cardInfo._id);
-    cardImage.src = cardInfo.link;
-    cardTitle.textContent = cardInfo.name;
-    isLikedByUser(cardElement, cardInfo, userID);
-    showLikes(cardElement, cardInfo);
-    showTrashIcon(cardElement, cardInfo, userID);
-    return cardElement
-}
-
-function cardIdSearch(evt) {
+function searchCardId(evt) {
     const cardElement = evt.target.closest('.card__item');
     return cardElement.dataset.id;
 }
@@ -100,59 +49,64 @@ function cardIdSearch(evt) {
 
 // HANDLERS
 // ---> cards
-function handleCreateCardList() {
-    const fragment = document.createDocumentFragment();
-    getCards(createCard, fragment);
-}
-
 function handleLikesUpdate(cardId, likesNumber) {
     const cardElement = document.querySelector(`[data-id="${cardId}"]`);
     const likesAmount = cardElement.querySelector('.card__likes-amount');
     likesAmount.textContent = likesNumber;
 }
 
+function handleLike(cardInfo) {
+    handleLikesUpdate(cardInfo._id, cardInfo.likes.length);
+    showLikes(null, cardInfo);
+}
+
 function handleLikeIcon(evt) {
     if (evt.target.classList.contains('card__heart_on')) {
-        const cardId = cardIdSearch(evt);
+        const cardId = searchCardId(evt);
         evt.target.classList.toggle('card__heart_on');
-        return dislikeCard(cardId);
+        return dislikeCard(cardId).then(data => handleLike(data));
     }
     if (evt.target.classList.contains('card__heart')) {
-        const cardId = cardIdSearch(evt);
+        const cardId = searchCardId(evt);
         evt.target.classList.toggle('card__heart_on');
-        return likeCard(cardId);
+        return likeCard(cardId).then(data => handleLike(data));
     }
 }
 
 function handleDeleteCard(evt) {
-    if (evt.target.classList.contains('card__trash')) {
-        const clickedCard = evt.target.closest('.card__item');
-        const cardId = clickedCard.dataset.id;
-        deleteCard(cardId, clickedCard);
-    }
+    const clickedCard = evt.target.closest('.card__item');
+    const cardId = clickedCard.dataset.id;
+    deleteCard(cardId).then(data => {
+        clickedCard.remove();
+    });
 }
 
 function handleOpenCard(evt) {
-    if (evt.target.classList.contains('card__image')) {
-        const clickedCard = evt.target.closest('.card__item');
-        const clickedCardImage = clickedCard.querySelector('.card__image');
-        const clickedCardCaption = clickedCard.querySelector('.card__caption');
-        openPopup(picturePopupWindow);
+    const clickedCard = evt.target.closest('.card__item');
+    const clickedCardImage = clickedCard.querySelector('.card__image');
+    const clickedCardCaption = clickedCard.querySelector('.card__title');
+    openPopup(picturePopupWindow);
 
-        picturePopup.src = clickedCardImage.src;
-        picturePopup.alt = clickedCardImage.alt;
-        pictureHeadingPopup.textContent = clickedCardCaption.textContent;
-    }
+    picturePopup.src = clickedCardImage.src;
+    picturePopup.alt = clickedCardImage.alt;
+    pictureHeadingPopup.textContent = clickedCardCaption.textContent;
 }
 
 
-export {
-    handleCreateCardList,
-    createCard,
-    cardContainer,
-    handleLikeIcon,
-    handleDeleteCard,
-    handleOpenCard,
-    handleLikesUpdate,
-    showLikes
-};
+export function createCard(cardInfo, userID) {
+    const cardElement = cardTemplate.querySelector('.card__item').cloneNode(true);
+    const cardImage = cardElement.querySelector('.card__image');
+    const cardTitle = cardElement.querySelector('.card__title');
+    const trashIcon = cardElement.querySelector('.card__trash');
+    const heartIcon = cardElement.querySelector('.card__heart');
+    cardElement.setAttribute('data-id', cardInfo._id);
+    cardImage.src = cardInfo.link;
+    cardTitle.textContent = cardInfo.name;
+    isLikedByUser(cardElement, cardInfo, userID);
+    showLikes(cardElement, cardInfo);
+    showTrashIcon(cardElement, cardInfo, userID);
+    trashIcon.addEventListener('click', handleDeleteCard)
+    cardImage.addEventListener('click', handleOpenCard)
+    heartIcon.addEventListener('click', handleLikeIcon)
+    return cardElement
+}
