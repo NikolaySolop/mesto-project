@@ -64,21 +64,26 @@ function handleLikeIcon(evt) {
     if (evt.target.classList.contains('card__heart_on')) {
         const cardId = searchCardId(evt);
         evt.target.classList.toggle('card__heart_on');
-        return dislikeCard(cardId).then(data => handleLike(data));
+        return dislikeCard(cardId)
+            .then(data => handleLike(data))
+            .catch(err => console.log(err));
     }
     if (evt.target.classList.contains('card__heart')) {
         const cardId = searchCardId(evt);
         evt.target.classList.toggle('card__heart_on');
-        return likeCard(cardId).then(data => handleLike(data));
+        return likeCard(cardId)
+            .then(data => handleLike(data))
+            .catch(err => console.log(err));
+        ;
     }
 }
 
 function handleDeleteCard(evt) {
     const clickedCard = evt.target.closest('.card__item');
     const cardId = clickedCard.dataset.id;
-    deleteCard(cardId).then(data => {
-        clickedCard.remove();
-    });
+    deleteCard(cardId)
+        .then(() => {clickedCard.remove();})
+        .catch(err => console.log(err));
 }
 
 function handleOpenCard(evt) {

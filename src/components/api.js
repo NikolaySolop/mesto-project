@@ -1,6 +1,4 @@
-import {
-    profileFormFullname, profileFormProfession, placeProfileFormSubmitButton
-} from './utils'
+import {profileFormFullname, profileFormProfession} from './utils'
 
 const config = {
     baseUrl: 'https://nomoreparties.co/v1/plus-cohort-26',
@@ -19,8 +17,7 @@ export const getProfileData = () => {
         headers: config.headers
     })
         .then(checkResponse)
-        .then(data => data)
-        .catch(err => console.log(err));
+        .then(data => data);
 }
 
 export const getCards = (createCard, fragment) => {
@@ -29,8 +26,7 @@ export const getCards = (createCard, fragment) => {
         headers: config.headers,
     })
         .then(checkResponse)
-        .then(cards => cards)
-        .catch(err => console.log(err))
+        .then(cards => cards);
 }
 
 
@@ -44,8 +40,7 @@ export const patchProfileData = () => {
         })
     })
         .then(checkResponse)
-        .then(data => data)
-        .catch(err => console.log(err))
+        .then(data => data);
 }
 
 export const patchAvatarPicture = (link) => {
@@ -58,12 +53,10 @@ export const patchAvatarPicture = (link) => {
     })
         .then(checkResponse)
         .then(data => data)
-        .catch(err => console.log(err))
 }
 
 
 export const postCard = (name, link) => {
-    placeProfileFormSubmitButton.textContent = 'Сохранение...';
     return fetch(`${config.baseUrl}/cards`, {
         method: 'POST',
         headers: config.headers,
@@ -73,11 +66,7 @@ export const postCard = (name, link) => {
         })
     })
         .then(checkResponse)
-        .then(data => data)
-        .catch(err => console.log(err))
-        .finally(() => {
-            placeProfileFormSubmitButton.textContent = 'Сохранить';
-        });
+        .then(data => data);
 }
 
 export const likeCard = (cardId) => {
@@ -86,8 +75,7 @@ export const likeCard = (cardId) => {
         headers: config.headers
     })
         .then(checkResponse)
-        .then(data => data)
-        .catch(err => console.log(err))
+        .then(data => data);
 }
 
 export const dislikeCard = (cardId) => {
@@ -96,8 +84,7 @@ export const dislikeCard = (cardId) => {
         headers: config.headers
     })
         .then(checkResponse)
-        .then(data => data)
-        .catch(err => console.log(err))
+        .then(data => data);
 }
 
 export const deleteCard = (cardId, cardElement) => {
@@ -106,6 +93,5 @@ export const deleteCard = (cardId, cardElement) => {
         headers: config.headers
     })
         .then(checkResponse)
-        .then(data => data)
-        .catch(err => console.log(err))
+        .then(data => data);
 }
